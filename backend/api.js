@@ -1,24 +1,36 @@
 const axios = require('axios');
+const express = require('express')
+const app = express()
+const cors = require('cors')
 
-const url = 'https://economia.awesomeapi.com.br/json/last/USD-BRL,EUR-BRL,BTC-BRL'
+const url = 'https://economia.awesomeapi.com.br/json/last/USD-BRL,EUR-BRL,BTC-BRL';
 
+const port = '3000'
 
+app.use(cors())
 
-
-async function getUser() {
+async function getUSDtoBRL() {
     try {
+      let output = {}
       const response = await axios.get(url);
-      return response
+      output += response.data.USDBRL.high + ", ";
+      output += response.data.EURBRL.high + ", ";
+      output += response.data.BTCBRL.high;
+      postCoins(output)
     } catch (error) {
       console.error(error);
     }
   }
 
+getUSDtoBRL();
 
-if (typeof document !== 'undefined') {
-    document.createElement('a').setAttribute('texto', 'id')
-    const b = document.querySelector('.texto')
-    return b
+async function postCoins(body) {
+  app.post('/dolar', (req, res) => {
+    res.json(body)
+  })
 }
 
-getUser().then(response => b.innerHTML = `${response.data}`)
+app.listen(port, () => {
+  console.log(`api run in ${port}`)
+})
+

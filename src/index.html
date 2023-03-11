@@ -1,22 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="favicon.ico" type="">
-    <title>Conversor de Real</title>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="shortcut icon" href="favicon.ico" type="">
 
-    <script>
+        <title>Conversor de Real</title>
         
-    </script>
-    
-</head>
-<body>
+    <head>
+    <body>
 
-    <script src="../backend/api.js" >
+        <p id="dolar"></p>
+
         
-    </script> 
+        <script>
+            var resText = document.getElementById('dolar')
 
-</body>
-</html>
+            async function getResponse() {
+                const response = await fetch(
+                    'http://localhost:3000/dolar',
+                    {
+                        method: 'POST',
+                    }
+                );
+                const data = await response.json(); 
+                resText.innerHTML = `${data}`
+            }   
+            
+            getResponse();
+
+        </script>
+    </body>
+<html>
